@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="uk" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест: Автоматичні функції MS Excel</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        excel: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            accent: '#107c41'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full font-sans text-slate-800 flex flex-col justify-between custom-scrollbar">
+
+    <!-- Header / Navbar -->
+    <header class="bg-excel-accent text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2 rounded-lg backdrop-blur-sm border border-white/20">
+                    <i class="fa-solid fa-file-excel text-2xl text-emerald-300"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Автоматичні функції MS Excel</h1>
+                    <p class="text-xs text-emerald-100 font-light">Інтерактивний перевірочний тест</p>
+                </div>
+            </div>
+            <div id="quiz-badge" class="hidden sm:flex items-center space-x-2 bg-emerald-900/40 px-3 py-1.5 rounded-full text-xs font-medium border border-emerald-500/30">
+                <i class="fa-solid fa-list-check text-emerald-300"></i>
+                <span>20 Запитань</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-8 w-full flex-grow">
+
+        <!-- Welcome / Start Screen -->
+        <div id="start-screen" class="bg-white rounded-2xl shadow-xl border border-slate-100 p-8 text-center transition-all duration-300">
+            <div class="w-20 h-20 bg-excel-100 text-excel-700 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
+                <i class="fa-solid fa-calculator text-3xl"></i>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3">Перевірте свої знання Excel!</h2>
+            <p class="text-slate-600 max-w-xl mx-auto mb-8 leading-relaxed text-sm sm:text-base">
+                Тест складається з <span class="font-semibold text-excel-700">20 запитань</span> на тему автоматичних та математичних функцій Excel: 
+                <code class="bg-slate-100 px-1.5 py-0.5 rounded text-excel-700 font-mono text-xs">SUM/СУММ</code>, 
+                <code class="bg-slate-100 px-1.5 py-0.5 rounded text-excel-700 font-mono text-xs">AVERAGE/СРЗНАЧ</code>, 
+                <code class="bg-slate-100 px-1.5 py-0.5 rounded text-excel-700 font-mono text-xs">MIN/МИН</code>, 
+                <code class="bg-slate-100 px-1.5 py-0.5 rounded text-excel-700 font-mono text-xs">MAX/МАКС</code>, 
+                <code class="bg-slate-100 px-1.5 py-0.5 rounded text-excel-700 font-mono text-xs">ABS</code>, 
+                <code class="bg-slate-100 px-1.5 py-0.5 rounded text-excel-700 font-mono text-xs">SQRT/КОРЕНЬ</code>, 
+                <code class="bg-slate-100 px-1.5 py-0.5 rounded text-excel-700 font-mono text-xs">COS</code> та 
+                <code class="bg-slate-100 px-1.5 py-0.5 rounded text-excel-700 font-mono text-xs">TAN</code>.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 text-left max-w-2xl mx-auto">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80">
+                    <div class="text-excel-600 font-bold mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-list-ol"></i> 20 питань
+                    </div>
+                    <p class="text-xs text-slate-500">Одна правильна відповідь у кожному</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80">
+                    <div class="text-excel-600 font-bold mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-clock"></i> Без ліміту
+                    </div>
+                    <p class="text-xs text-slate-500">Працюйте у власному темпі</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80">
+                    <div class="text-excel-600 font-bold mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie"></i> Аналіз
+                    </div>
+                    <p class="text-xs text-slate-500">Детальний розбір відповідей в кінці</p>
+                </div>
+            </div>
+
+            <button id="btn-start" class="w-full sm:w-auto px-10 py-4 bg-excel-accent hover:bg-excel-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0">
+                Розпочати тест <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <!-- Quiz Form / Container -->
+        <div id="quiz-container" class="hidden space-y-6">
+            
+            <!-- Progress Tracker Bar -->
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 sticky top-16 z-40 backdrop-blur-md bg-white/90">
+                <div class="flex justify-between items-center mb-2">
+                    <span id="progress-text" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Прогрес: 0 з 20</span>
+                    <span id="progress-percentage" class="text-xs font-bold text-excel-700">0%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                    <div id="progress-bar" class="bg-excel-accent h-2.5 rounded-full transition-all duration-300 w-0"></div>
+                </div>
+            </div>
+
+            <!-- Questions Form -->
+            <form id="quiz-form" class="space-y-6">
+                <div id="questions-wrapper" class="space-y-6">
+                    <!-- Dynamic Questions Injection -->
+                </div>
+
+                <!-- Action Controls -->
+                <div class="pt-4 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-slate-200">
+                    <div class="text-xs text-slate-500 text-center sm:text-left">
+                        <i class="fa-solid fa-circle-info text-excel-600 mr-1"></i>
+                        Дайте відповідь на всі питання, щоб отримати максимальний результат.
+                    </div>
+                    <button type="submit" id="btn-submit" class="w-full sm:w-auto px-8 py-3.5 bg-excel-accent hover:bg-excel-800 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-check-double"></i>
+                        Перевірити результати
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="hidden space-y-8 transition-all duration-300">
+            <!-- Score Card Summary -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden text-center">
+                <div class="bg-gradient-to-r from-excel-800 to-excel-accent p-8 text-white">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mb-2">Результати тестування</h2>
+                    <p class="text-emerald-100 text-sm">Ось детальний підсумок ваших знань функцій Excel</p>
+                </div>
+
+                <div class="p-8">
+                    <!-- Gauge / Donut Circle -->
+                    <div class="relative w-40 h-40 mx-auto mb-6 flex items-center justify-center">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                            <path class="text-slate-100" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path id="result-circle" class="text-excel-600 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        </svg>
+                        <div class="absolute flex flex-col items-center justify-center">
+                            <span id="score-percentage" class="text-3xl font-black text-slate-800">0%</span>
+                            <span id="score-fraction" class="text-xs font-semibold text-slate-500">0 / 20</span>
+                        </div>
+                    </div>
+
+                    <!-- Verbal Assessment Badge -->
+                    <div id="badge-container" class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+                        <!-- Injected via JS -->
+                    </div>
+
+                    <p id="result-message" class="text-slate-600 max-w-md mx-auto text-sm leading-relaxed mb-8">
+                        <!-- Message Injected -->
+                    </p>
+
+                    <button id="btn-restart" class="px-8 py-3 bg-excel-accent hover:bg-excel-800 text-white font-semibold rounded-xl shadow-md transition-all inline-flex items-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i> Пройти тест ще раз
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Breakdown Header -->
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-magnifying-glass-chart text-excel-600"></i>
+                    Детальний аналіз відповідей
+                </h3>
+                <span class="text-xs text-slate-500">Зверніть увагу на помилки</span>
+            </div>
+
+            <!-- Answers Review Container -->
+            <div id="review-container" class="space-y-6">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto px-4">
+            <p>© MS Excel Automatic Functions Interactive Quiz. Всі права захищено.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Quiz Logic -->
+    <script>
+        // 20 Questions Data Array
+        const questionsData = [
+            {
+                id: 1,
+                question: "Яка формула є правильною для обчислення суми значень у діапазоні комірок від A1 до A10?",
+                options: [
+                    "=СУММ(A1:A10)",
+                    "=СУММА(A1-A10)",
+                    "=SUM(A1..A10)",
+                    "=СУМ(A1;A10)"
+                ],
+                correct: 0,
+                explanation: "У розпределеному синтаксисі MS Excel використовують =СУММ(A1:A10) або англомовний аналог =SUM(A1:A10). Двокрапка визначає діапазон."
+            },
+            {
+                id: 2,
+                question: "Що поверне формула =СРЗНАЧ(2; 4; 6; 8) в Excel?",
+                options: [
+                    "20",
+                    "5",
+                    "4",
+                    "6"
+                ],
+                correct: 1,
+                explanation: "Функція СРЗНАЧ (AVERAGE) обчислює середнє арифметичне: (2 + 4 + 6 + 8) / 4 = 20 / 4 = 5."
+            },
+            {
+                id: 3,
+                question: "У яких одиницях вимірювання функція COS в Excel приймає кут як аргумент?",
+                options: [
+                    "У градусах",
+                    "У радіанах",
+                    "У градах",
+                    "У відсотках"
+                ],
+                correct: 1,
+                explanation: "Тригонометричні функції в Excel (COS, TAN, SIN) завжди приймають значення кута в радіанах."
+            },
+            {
+                id: 4,
+                question: "Яке значення поверне формула =ABS(-15)?",
+                options: [
+                    "-15",
+                    "15",
+                    "0",
+                    "#ЧИСЛО!"
+                ],
+                correct: 1,
+                explanation: "Функція ABS повертає абсолютне значення числа (модуль), перетворюючи від'ємне число на додатне."
+            },
+            {
+                id: 5,
+                question: "Результатом виконання формули =КОРЕНЬ(81) є число:",
+                options: [
+                    "8.1",
+                    "18",
+                    "9",
+                    "-9"
+                ],
+                correct: 2,
+                explanation: "Функція КОРЕНЬ (SQRT в англомовній версії) обчислює квадратний корінь додатного числа. √81 = 9."
+            },
+            {
+                id: 6,
+                question: "Що відбудеться при спробі обчислити =SQRT(-16) в Excel?",
+                options: [
+                    "Поверне -4",
+                    "Поверне 4",
+                    "Поверне помилку #ЧИСЛО! (#NUM!)",
+                    "Поверне 0"
+                ],
+                correct: 2,
+                explanation: "Квадратний корінь з від'ємного числа серед дійсних чисел не існує, тому Excel видасть помилку #ЧИСЛО! (#NUM!)."
+            },
+            {
+                id: 7,
+                question: "Яке значення поверне формула =МАКС(-10; -5; -20; -2)?",
+                options: [
+                    "-20",
+                    "-2",
+                    "-5",
+                    "0"
+                ],
+                correct: 1,
+                explanation: "Функція МАКС (MAX) шукає найбільше число. Серед від'ємних чисел найбільшим є те, яке найближче до нуля (-2)."
+            },
+            {
+                id: 8,
+                question: "Яка з наведених формул правильно обчислює косинус кута 60 градусів у середовищі Excel?",
+                options: [
+                    "=COS(60)",
+                    "=COS(60*ПИ()/180)",
+                    "=COS(60/180)",
+                    "=COS(GRAD(60))"
+                ],
+                correct: 1,
+                explanation: "Щоб перевести градуси в радіани, їх множать на ПИ()/180 або використовують функцію РАДИАНЫ(60)."
+            },
+            {
+                id: 9,
+                question: "У комірках A1:A3 містяться числа: A1=5, A2 є порожньою коміркою, A3=15. Що поверне формула =СРЗНАЧ(A1:A3)?",
+                options: [
+                    "10",
+                    "6.66",
+                    "20",
+                    "0"
+                ],
+                correct: 0,
+                explanation: "Функція СРЗНАЧ ігнорує порожні комірки при розрахунку кількості. Тому сума (20) ділиться на 2 комірки, що дає 10."
+            },
+            {
+                id: 10,
+                question: "Яка з наведених формул знайде найменше значення в діапазоні B2:B12?",
+                options: [
+                    "=MINIM(B2:B12)",
+                    "=МИН(B2:B12)",
+                    "=НАЙМЕНШИЙ(B2:B12)",
+                    "=SMALL(B2-B12)"
+                ],
+                correct: 1,
+                explanation: "Стандартна функція для визначення мінімального значення в українському Excel — =МИН(), а в англомовному — =MIN()."
+            },
+            {
+                id: 11,
+                question: "Що поверне формула =TAN(0)?",
+                options: [
+                    "1",
+                    "0",
+                    "#ЗНАЧ!",
+                    "90"
+                ],
+                correct: 1,
+                explanation: "Тангенс кута 0 радіан дорівнює 0 (tan(0) = 0)."
+            },
+            {
+                id: 12,
+                question: "Яка формула знайде модуль різниці значений комірок A1 та B1?",
+                options: [
+                    "=ABS(A1-B1)",
+                    "=МОДУЛЬ(A1-B1)",
+                    "=ABS(A1:B1)",
+                    "=SQRT(A1-B1)"
+                ],
+                correct: 0,
+                explanation: "У всіх мовних версіях Excel функція для обчислення модуля називається ABS."
+            },
+            {
+                id: 13,
+                question: "Яким буде результат обчислення формули =СУММ(5; ABS(-5); SQRT(25))?",
+                options: [
+                    "5",
+                    "10",
+                    "15",
+                    "25"
+                ],
+                correct: 2,
+                explanation: "ABS(-5) = 5, SQRT(25) = 5. Формула перетворюється на =СУММ(5; 5; 5) = 15."
+            },
+            {
+                id: 14,
+                question: "Комірки містять значення: A1=-4, A2=0, A3=4. Що поверне формула =МИН(A1:A3)?",
+                options: [
+                    "0",
+                    "4",
+                    "-4",
+                    "#ЧИСЛО!"
+                ],
+                correct: 2,
+                explanation: "Найменшим значенням серед (-4, 0, 4) є від'ємне число -4."
+            },
+            {
+                id: 15,
+                question: "Яка формула обчислює квадратний корінь із суми комірок A1 та B1?",
+                options: [
+                    "=SQRT(A1+B1)",
+                    "=КОРЕНЬ(A1; B1)",
+                    "=SQRT(A1:B1)",
+                    "=КОРЕНЬ(СУММ(A1-B1))"
+                ],
+                correct: 0,
+                explanation: "Формула =SQRT(A1+B1) або =КОРЕНЬ(A1+B1) спочатку додасть значення A1 і B1, а потім обчислить квадратний корінь."
+            },
+            {
+                id: 16,
+                question: "Як у формулах Excel записується функція для обчислення тангенса кута?",
+                options: [
+                    "TG",
+                    "TANGENT",
+                    "TAN",
+                    "TNG"
+                ],
+                correct: 2,
+                explanation: "Для математичної функції тангенса в Excel використовується позначення TAN (як в українській, так і в англійській версіях)."
+            },
+            {
+                id: 17,
+                question: "Що поверне формула =MAX(ABS(-50); 20; SQRT(100))?",
+                options: [
+                    "20",
+                    "10",
+                    "50",
+                    "-50"
+                ],
+                correct: 2,
+                explanation: "ABS(-50) = 50, SQRT(100) = 10. Максимум серед (50, 20, 10) дорівнює 50."
+            },
+            {
+                id: 18,
+                question: "Яке значення поверне формула =COS(0)?",
+                options: [
+                    "0",
+                    "1",
+                    "-1",
+                    "#ЧИСЛО!"
+                ],
+                correct: 1,
+                explanation: "Косинус 0 радіан дорівнює 1 (cos(0) = 1)."
+            },
+            {
+                id: 19,
+                question: "Якщо в діапазоні A1:A4 знаходяться числа 10, 20, 30, 40, який результат поверне формула =AVERAGE(A1:A4)?",
+                options: [
+                    "100",
+                    "20",
+                    "25",
+                    "30"
+                ],
+                correct: 2,
+                explanation: "Сума = 100, кількість = 4. Середнє значення: 100 / 4 = 25."
+            },
+            {
+                id: 20,
+                question: "Що поверне формула =СУММ(ABS(-10); MIN(5; 15; -2))?",
+                options: [
+                    "8",
+                    "15",
+                    "13",
+                    "-12"
+                ],
+                correct: 0,
+                explanation: "ABS(-10) = 10. MIN(5; 15; -2) = -2. Сума = 10 + (-2) = 8."
+            }
+        ];
+
+        // Application State
+        let userAnswers = {};
+
+        // DOM Elements
+        const startScreen = document.getElementById('start-screen');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultScreen = document.getElementById('result-screen');
+        const questionsWrapper = document.getElementById('questions-wrapper');
+        const quizForm = document.getElementById('quiz-form');
+        const quizBadge = document.getElementById('quiz-badge');
+
+        const btnStart = document.getElementById('btn-start');
+        const btnRestart = document.getElementById('btn-restart');
+
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressPercentage = document.getElementById('progress-percentage');
+
+        // Initialize App
+        btnStart.addEventListener('click', startQuiz);
+        btnRestart.addEventListener('click', restartQuiz);
+        quizForm.addEventListener('submit', handleQuizSubmit);
+
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            quizBadge.classList.remove('hidden');
+            renderQuestions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function restartQuiz() {
+            userAnswers = {};
+            resultScreen.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            renderQuestions();
+            updateProgressBar();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderQuestions() {
+            questionsWrapper.innerHTML = '';
+            questionsData.forEach((q, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'bg-white rounded-2xl shadow-sm border border-slate-200 p-6 transition-all duration-200 hover:shadow-md';
+                questionCard.id = `q-card-${q.id}`;
+
+                let optionsHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    optionsHTML += `
+                        <label class="option-label flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 cursor-pointer transition-all hover:bg-slate-50 hover:border-excel-500 group">
+                            <input type="radio" name="q_${q.id}" value="${optIdx}" class="mt-1 w-4 h-4 text-excel-600 focus:ring-excel-500 border-slate-300 transition" onchange="onOptionSelect(${q.id}, ${optIdx})">
+                            <span class="text-sm font-medium text-slate-700 group-hover:text-slate-900 font-mono">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                questionCard.innerHTML = `
+                    <div class="flex items-start gap-3 mb-4">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-excel-100 text-excel-800 font-bold text-sm flex items-center justify-center">
+                            ${index + 1}
+                        </span>
+                        <h3 class="text-base font-semibold text-slate-800 pt-1 leading-snug">
+                            ${q.question}
+                        </h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pl-0 sm:pl-11">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                questionsWrapper.appendChild(questionCard);
+            });
+        }
+
+        window.onOptionSelect = function(questionId, optionIndex) {
+            userAnswers[questionId] = optionIndex;
+            
+            // Highlight selected card styling
+            const card = document.getElementById(`q-card-${questionId}`);
+            const labels = card.querySelectorAll('.option-label');
+            labels.forEach((label, idx) => {
+                if (idx === optionIndex) {
+                    label.classList.add('bg-excel-50', 'border-excel-500', 'ring-1', 'ring-excel-500');
+                    label.classList.remove('border-slate-200');
+                } else {
+                    label.classList.remove('bg-excel-50', 'border-excel-500', 'ring-1', 'ring-excel-500');
+                    label.classList.add('border-slate-200');
+                }
+            });
+
+            updateProgressBar();
+        };
+
+        function updateProgressBar() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const total = questionsData.length;
+            const percentage = Math.round((answeredCount / total) * 100);
+
+            progressBar.style.width = `${percentage}%`;
+            progressText.innerText = `Прогрес: ${answeredCount} з ${total}`;
+            progressPercentage.innerText = `${percentage}%`;
+        }
+
+        function handleQuizSubmit(e) {
+            e.preventDefault();
+
+            const total = questionsData.length;
+            const answeredCount = Object.keys(userAnswers).length;
+
+            if (answeredCount < total) {
+                const unanswered = total - answeredCount;
+                if (!confirm(`Ви відповіли не на всі питання (залишилося: ${unanswered}). Бажаєте завершити тест?`)) {
+                    return;
+                }
+            }
+
+            calculateAndDisplayResults();
+        }
+
+        function calculateAndDisplayResults() {
+            let correctCount = 0;
+
+            questionsData.forEach(q => {
+                if (userAnswers[q.id] === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            const percentage = Math.round((correctCount / questionsData.length) * 100);
+
+            // Hide Quiz Container, Show Results
+            quizContainer.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Update Circle Gauge
+            const circle = document.getElementById('result-circle');
+            circle.setAttribute('stroke-dasharray', `${percentage}, 100`);
+
+            document.getElementById('score-percentage').innerText = `${percentage}%`;
+            document.getElementById('score-fraction').innerText = `${correctCount} / ${questionsData.length}`;
+
+            // Assessment Badge and Message
+            const badgeContainer = document.getElementById('badge-container');
+            const resultMessage = document.getElementById('result-message');
+
+            if (percentage >= 90) {
+                badgeContainer.className = "inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-6 bg-emerald-100 text-emerald-800 border border-emerald-300";
+                badgeContainer.innerHTML = '<i class="fa-solid fa-award mr-1"></i> Відмінний результат!';
+                resultMessage.innerText = "Вітаємо! Ви чудово володієте основними автоматичними та математичними функціями MS Excel.";
+            } else if (percentage >= 70) {
+                badgeContainer.className = "inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-6 bg-blue-100 text-blue-800 border border-blue-300";
+                badgeContainer.innerHTML = '<i class="fa-solid fa-thumbs-up mr-1"></i> Хороший результат!';
+                resultMessage.innerText = "Добре виконано! Ви маєте міцні знання, але варто звернути увагу на деякі нюанси синтаксису чи тригонометрії.";
+            } else if (percentage >= 50) {
+                badgeContainer.className = "inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-6 bg-amber-100 text-amber-800 border border-amber-300";
+                badgeContainer.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Задовільно';
+                resultMessage.innerText = "Ви відповіли правильно на половину запитань. Рекомендуємо повторити синтаксис та призначення окремих функцій.";
+            } else {
+                badgeContainer.className = "inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-6 bg-rose-100 text-rose-800 border border-rose-300";
+                badgeContainer.innerHTML = '<i class="fa-solid fa-circle-xmark mr-1"></i> Потрібно повторити матеріали';
+                resultMessage.innerText = "Результат потребує покращення. Ознайомтеся з деталізацією помилок нижче та спробуйте ще раз.";
+            }
+
+            renderAnswersReview();
+        }
+
+        function renderAnswersReview() {
+            const reviewContainer = document.getElementById('review-container');
+            reviewContainer.innerHTML = '';
+
+            questionsData.forEach((q, index) => {
+                const userAns = userAnswers[q.id];
+                const isCorrect = userAns === q.correct;
+                const isSkipped = userAns === undefined;
+
+                const reviewCard = document.createElement('div');
+                reviewCard.className = `bg-white rounded-xl border p-5 shadow-sm transition-all ${
+                    isCorrect 
+                        ? 'border-emerald-200 bg-emerald-50/20' 
+                        : 'border-rose-200 bg-rose-50/20'
+                }`;
+
+                let optionsReviewHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    let optionStyle = 'border-slate-200 bg-white text-slate-600';
+                    let badgeHTML = '';
+
+                    if (optIdx === q.correct) {
+                        optionStyle = 'border-emerald-500 bg-emerald-100/60 font-semibold text-emerald-900';
+                        badgeHTML = '<span class="ml-auto text-xs bg-emerald-600 text-white px-2 py-0.5 rounded font-sans">Правильна відповідь</span>';
+                    }
+
+                    if (userAns === optIdx && !isCorrect) {
+                        optionStyle = 'border-rose-500 bg-rose-100/60 font-semibold text-rose-900';
+                        badgeHTML = '<span class="ml-auto text-xs bg-rose-600 text-white px-2 py-0.5 rounded font-sans">Ваша відповідь</span>';
+                    }
+
+                    optionsReviewHTML += `
+                        <div class="flex items-center gap-2 p-3 rounded-lg border text-sm font-mono ${optionStyle}">
+                            <span>${opt}</span>
+                            ${badgeHTML}
+                        </div>
+                    `;
+                });
+
+                reviewCard.innerHTML = `
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
+                                isCorrect ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white'
+                            }">
+                                ${index + 1}
+                            </span>
+                            <h4 class="text-sm sm:text-base font-semibold text-slate-800">
+                                ${q.question}
+                            </h4>
+                        </div>
+                        <span class="flex-shrink-0 text-xs font-semibold px-2.5 py-1 rounded-full ${
+                            isCorrect 
+                                ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' 
+                                : 'bg-rose-100 text-rose-800 border border-rose-200'
+                        }">
+                            ${isCorrect ? '<i class="fa-solid fa-check mr-1"></i>Вірно' : isSkipped ? 'Пропущено' : '<i class="fa-solid fa-xmark mr-1"></i>Помилка'}
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 my-3">
+                        ${optionsReviewHTML}
+                    </div>
+
+                    <div class="mt-3 p-3 rounded-lg bg-slate-100/80 border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                        <span class="font-bold text-slate-700 block mb-0.5"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i>Пояснення:</span>
+                        ${q.explanation}
+                    </div>
+                `;
+
+                reviewContainer.appendChild(reviewCard);
+            });
+        }
+    </script>
+</body>
+</html>
